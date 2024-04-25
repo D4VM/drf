@@ -34,7 +34,7 @@ class OrderSerializer(ModelSerializer):
         return data
 
     def get_price_per_item(self, obj) -> float:
-        return obj.product.price
+        return obj.product.sale_price()
 
     def get_total_price(self, obj) -> float:
         return obj.product.sale_price() * obj.quantity
