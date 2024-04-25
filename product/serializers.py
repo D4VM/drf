@@ -10,7 +10,8 @@ class ProductImageSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    images = ProductImageSerializer(many=True, read_only=True)
+    # images = ProductImageSerializer(many=True, read_only=True)
+    images = serializers.SerializerMethodField()
     sale_price = serializers.SerializerMethodField()
 
     class Meta:
@@ -19,6 +20,10 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_sale_price(self, obj) -> float:
         return obj.sale_price()
+
+    def get_images(self, obj) -> list:
+        images = ProductImage.objects.filter(product=obj)
+        return [image.image.url for image in images]
 
     def create(self, validated_data):
         """

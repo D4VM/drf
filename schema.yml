@@ -596,10 +596,9 @@ components:
         id:
           type: integer
           readOnly: true
-        images:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductImage'
+        sale_price:
+          type: number
+          format: double
           readOnly: true
         title:
           type: string
@@ -648,10 +647,9 @@ components:
         id:
           type: integer
           readOnly: true
-        images:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductImage'
+        sale_price:
+          type: number
+          format: double
           readOnly: true
         title:
           type: string
@@ -697,17 +695,9 @@ components:
       required:
       - created_at
       - id
-      - images
+      - sale_price
       - title
       - updated_at
-    ProductImage:
-      type: object
-      properties:
-        image:
-          type: string
-          format: uri
-      required:
-      - image
   securitySchemes:
     basicAuth:
       type: http
