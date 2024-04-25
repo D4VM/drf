@@ -3,10 +3,10 @@ from .models import Order
 
 
 class OrderSerializer(ModelSerializer):
-    product_options = SerializerMethodField()
-    price_per_item = SerializerMethodField()
-    total_price = SerializerMethodField()
-    created_at = SerializerMethodField()
+    product_options = SerializerMethodField(read_only=True)
+    price_per_item = SerializerMethodField(read_only=True)
+    total_price = SerializerMethodField(read_only=True)
+    created_at = SerializerMethodField(read_only=True)
 
     class Meta:
         model = Order
