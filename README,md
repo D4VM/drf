@@ -1,6 +1,0 @@
-This is a basic e-commerce app with a REST API. It allows users to create an account, login, and view/modify their orders. The API is built with Django Rest Framework and swagger docs are generated using drf-spectacular.
-The app is built with Django 5.0.4 and Python 3.9.
-
-The codebase is organized into apps for user and order management and the product API.
-
-The frontend is not included in this repo but feel free to make one if you want.
