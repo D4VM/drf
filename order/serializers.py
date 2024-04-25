@@ -25,6 +25,8 @@ class OrderSerializer(ModelSerializer):
             "id": obj.product.id,
             "name": obj.product.title,
             "price": obj.product.price,
+            "discount": obj.product.discount,
+            "stock": obj.product.stock,
             "sale_price": obj.product.sale_price(),
             "color": obj.product.color,
             "size": obj.product.size,
