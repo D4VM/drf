@@ -34,4 +34,4 @@ class ProductImage(models.Model):
     image = models.ImageField(upload_to="product_images/")
 
     def __str__(self) -> str:
-        return f"{self.product.pk} - {self.product.title}"
+        return f"Product ID: {self.product.pk} | Product Title: {self.product.title}"
