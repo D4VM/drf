@@ -157,4 +157,3 @@ SPECTACULAR_SETTINGS = {
 if DEBUG == True:
     CORS_ALLOW_ALL_ORIGINS = True  # BAD!!! TODO: In Prod Change to False !!!
 CORS_URLS_REGEX = r"^/api/.*$"
-
