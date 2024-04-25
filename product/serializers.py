@@ -11,8 +11,8 @@ class ProductImageSerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     # images = ProductImageSerializer(many=True, read_only=True)
-    images = serializers.SerializerMethodField()
-    sale_price = serializers.SerializerMethodField()
+    images = serializers.SerializerMethodField(read_only=True)
+    sale_price = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Product

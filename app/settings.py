@@ -114,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Tbilisi"
 
 USE_I18N = True
 
@@ -142,6 +142,8 @@ AUTH_USER_MODEL = "user.CustomUser"
 REST_FRAMEWORK = {
     # YOUR SETTINGS
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 30,
 }
 
 # DRF Spectacular Settings
