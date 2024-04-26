@@ -48,7 +48,7 @@ class OrderSerializer(ModelSerializer):
             "price_per_item": obj.product.get_sale_price(),
             "quantity": obj.quantity,
             "total_price": obj.product.get_sale_price() * obj.quantity,
-            "status": obj.status,
+            "completed": obj.completed,
             "created_at": obj.created_at,
         }
         return data
