@@ -1,5 +1,16 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
 
-admin.site.register(CustomUser)
+
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = (
+        "email",
+        "phone",
+        "city",
+        "address",
+        "is_active",
+        "is_admin",
+    )
+
+    search_fields = ("email", "phone", "city", "address")
