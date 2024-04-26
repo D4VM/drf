@@ -5,22 +5,19 @@ from .models import Order
 class OrderSerializer(ModelSerializer):
     product_options = SerializerMethodField(read_only=True)
     user_info = SerializerMethodField(read_only=True)
-    price_per_item = SerializerMethodField(read_only=True)
-    total_price = SerializerMethodField(read_only=True)
-    created_at = SerializerMethodField(read_only=True)
-    status = SerializerMethodField(read_only=True)
+    order_info = SerializerMethodField(read_only=True)
 
     class Meta:
         model = Order
         fields = (
             "id",
+            "user",
+            "product",
+            "quantity",
+            # Info about product, user, order
             "product_options",
             "user_info",
-            "quantity",
-            "price_per_item",
-            "total_price",
-            "status",
-            "created_at",
+            "order_info",
         )
 
     def get_product_options(self, obj) -> dict:
@@ -29,8 +26,8 @@ class OrderSerializer(ModelSerializer):
             "title": obj.product.title,
             "price": obj.product.price,
             "discount": obj.product.discount,
+            "sale_price": obj.product.get_sale_price(),
             "stock": obj.product.stock,
-            "sale_price": obj.product.sale_price(),
             "color": obj.product.color,
             "size": obj.product.size,
         }
@@ -46,14 +43,24 @@ class OrderSerializer(ModelSerializer):
         }
         return data
 
-    def get_price_per_item(self, obj) -> float:
-        return obj.product.sale_price()
+    def get_order_info(self, obj) -> dict:
+        data = {
+            "price_per_item": obj.product.get_sale_price(),
+            "quantity": obj.quantity,
+            "total_price": obj.product.get_sale_price() * obj.quantity,
+            "status": obj.status,
+            "created_at": obj.created_at,
+        }
+        return data
 
-    def get_total_price(self, obj) -> float:
-        return obj.product.sale_price() * obj.quantity
+    # def get_price_per_item(self, obj) -> float:
+    #     return obj.product.get_sale_price()
 
-    def get_created_at(self, obj) -> str:
-        return obj.created_at
+    # def get_total_price(self, obj) -> float:
+    #     return obj.product.get_sale_price() * obj.quantity
 
-    def get_status(self, obj) -> bool:
-        return obj.status
+    # def get_created_at(self, obj) -> str:
+    #     return obj.created_at
+
+    # def get_status(self, obj) -> bool:
+    #     return obj.status
