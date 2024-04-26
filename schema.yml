@@ -547,11 +547,14 @@ components:
     Order:
       type: object
       properties:
-        user:
+        id:
           type: integer
-        product:
-          type: integer
+          readOnly: true
         product_options:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        user_info:
           type: object
           additionalProperties: {}
           readOnly: true
@@ -568,17 +571,21 @@ components:
           type: number
           format: double
           readOnly: true
+        status:
+          type: boolean
+          readOnly: true
         created_at:
           type: string
           readOnly: true
       required:
       - created_at
+      - id
       - price_per_item
-      - product
       - product_options
       - quantity
+      - status
       - total_price
-      - user
+      - user_info
     PaginatedCustomUserList:
       type: object
       required:
@@ -675,11 +682,14 @@ components:
     PatchedOrder:
       type: object
       properties:
-        user:
+        id:
           type: integer
-        product:
-          type: integer
+          readOnly: true
         product_options:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        user_info:
           type: object
           additionalProperties: {}
           readOnly: true
@@ -695,6 +705,9 @@ components:
         total_price:
           type: number
           format: double
+          readOnly: true
+        status:
+          type: boolean
           readOnly: true
         created_at:
           type: string

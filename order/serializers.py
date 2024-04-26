@@ -4,32 +4,45 @@ from .models import Order
 
 class OrderSerializer(ModelSerializer):
     product_options = SerializerMethodField(read_only=True)
+    user_info = SerializerMethodField(read_only=True)
     price_per_item = SerializerMethodField(read_only=True)
     total_price = SerializerMethodField(read_only=True)
     created_at = SerializerMethodField(read_only=True)
+    status = SerializerMethodField(read_only=True)
 
     class Meta:
         model = Order
         fields = (
-            "user",
-            "product",
+            "id",
             "product_options",
+            "user_info",
             "quantity",
             "price_per_item",
             "total_price",
+            "status",
             "created_at",
         )
 
     def get_product_options(self, obj) -> dict:
         data = {
             "id": obj.product.id,
-            "name": obj.product.title,
+            "title": obj.product.title,
             "price": obj.product.price,
             "discount": obj.product.discount,
             "stock": obj.product.stock,
             "sale_price": obj.product.sale_price(),
             "color": obj.product.color,
             "size": obj.product.size,
+        }
+        return data
+
+    def get_user_info(self, obj) -> dict:
+        data = {
+            "id": obj.user.id,
+            "email": obj.user.email,
+            "phone": obj.user.phone,
+            "city": obj.user.city,
+            "address": obj.user.address,
         }
         return data
 
@@ -41,3 +54,6 @@ class OrderSerializer(ModelSerializer):
 
     def get_created_at(self, obj) -> str:
         return obj.created_at
+
+    def get_status(self, obj) -> bool:
+        return obj.status
