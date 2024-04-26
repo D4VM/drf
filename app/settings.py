@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "corsheaders",
     # internal apps
+    "api",
     "product",
     "user",
     "order",
