@@ -540,9 +540,13 @@ components:
         address:
           type: string
           nullable: true
+        is_admin:
+          type: string
+          readOnly: true
       required:
       - email
       - id
+      - is_admin
       - password
     Order:
       type: object
@@ -550,6 +554,15 @@ components:
         id:
           type: integer
           readOnly: true
+        user:
+          type: integer
+        product:
+          type: integer
+        quantity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
         product_options:
           type: object
           additionalProperties: {}
@@ -558,33 +571,16 @@ components:
           type: object
           additionalProperties: {}
           readOnly: true
-        quantity:
-          type: integer
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          format: int64
-        price_per_item:
-          type: number
-          format: double
-          readOnly: true
-        total_price:
-          type: number
-          format: double
-          readOnly: true
-        status:
-          type: boolean
-          readOnly: true
-        created_at:
-          type: string
+        order_info:
+          type: object
+          additionalProperties: {}
           readOnly: true
       required:
-      - created_at
       - id
-      - price_per_item
+      - order_info
+      - product
       - product_options
-      - quantity
-      - status
-      - total_price
+      - user
       - user_info
     PaginatedCustomUserList:
       type: object
@@ -679,12 +675,24 @@ components:
         address:
           type: string
           nullable: true
+        is_admin:
+          type: string
+          readOnly: true
     PatchedOrder:
       type: object
       properties:
         id:
           type: integer
           readOnly: true
+        user:
+          type: integer
+        product:
+          type: integer
+        quantity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
         product_options:
           type: object
           additionalProperties: {}
@@ -693,24 +701,9 @@ components:
           type: object
           additionalProperties: {}
           readOnly: true
-        quantity:
-          type: integer
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          format: int64
-        price_per_item:
-          type: number
-          format: double
-          readOnly: true
-        total_price:
-          type: number
-          format: double
-          readOnly: true
-        status:
-          type: boolean
-          readOnly: true
-        created_at:
-          type: string
+        order_info:
+          type: object
+          additionalProperties: {}
           readOnly: true
     PatchedProduct:
       type: object
