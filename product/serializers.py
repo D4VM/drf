@@ -12,14 +12,15 @@ class ProductImageSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     # images = ProductImageSerializer(many=True, read_only=True)
     images = serializers.SerializerMethodField(read_only=True)
-    sale_price = serializers.SerializerMethodField(read_only=True)
+    # sale_price = serializers.SerializerMethodField(read_only=True)
+    sale_price = serializers.FloatField(source="get_sale_price", read_only=True)
 
     class Meta:
         model = Product
         fields = "__all__"
 
-    def get_sale_price(self, obj) -> float:
-        return obj.sale_price()
+    # def get_sale_price(self, obj) -> float:
+    #     return obj.sale_price()
 
     def get_images(self, obj) -> list:
         images = ProductImage.objects.filter(product=obj)

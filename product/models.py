@@ -18,7 +18,7 @@ class Product(models.Model):
     class Meta:
         ordering = ["-created_at"]
 
-    def sale_price(self) -> float:
+    def get_sale_price(self) -> float:
         if self.discount:
             return round(self.price - (self.price * self.discount) / 100, 2)
         return self.price
