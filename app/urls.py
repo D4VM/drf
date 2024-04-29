@@ -26,10 +26,14 @@ urlpatterns = [
     # Internal app urls
     path("api/", include("api.urls")),
     # Docs
+    path("api-auth/", include("rest_framework.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/docs/",
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
+    # Auth
+    path("api/", include("djoser.urls")),
+    path("api/", include("djoser.urls.authtoken")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

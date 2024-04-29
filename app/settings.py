@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # external apps
     "rest_framework",
+    "rest_framework.authtoken",
+    "djoser",
     "drf_spectacular",
     "corsheaders",
     # internal apps
@@ -142,6 +144,11 @@ AUTH_USER_MODEL = "user.CustomUser"
 # REST Settings
 REST_FRAMEWORK = {
     # YOUR SETTINGS
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 30,
@@ -160,3 +167,11 @@ SPECTACULAR_SETTINGS = {
 if DEBUG == True:
     CORS_ALLOW_ALL_ORIGINS = True  # BAD!!! TODO: In Prod Change to False !!!
 CORS_URLS_REGEX = r"^/api/.*$"
+
+
+DJOSER = {
+    "SERIALIZERS": {
+        "user_create": "user.serializers.CustomUserSerializer",
+        "current_user": "user.serializers.CustomUserSerializer",
+    }
+}

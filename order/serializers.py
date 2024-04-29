@@ -36,6 +36,7 @@ class OrderSerializer(ModelSerializer):
     def get_user_info(self, obj) -> dict:
         data = {
             "id": obj.user.id,
+            "username": obj.user.username,
             "email": obj.user.email,
             "phone": obj.user.phone,
             "city": obj.user.city,

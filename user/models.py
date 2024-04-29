@@ -4,12 +4,18 @@ from rest_framework.validators import ValidationError
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, phone=None, city=None, address=None, password=None):
+    def create_user(
+        self, email, username=None, phone=None, city=None, address=None, password=None
+    ):
         if not email:
             raise ValidationError("Users must have an email address")
 
         user = self.model(
-            email=self.normalize_email(email), phone=phone, city=city, address=address
+            email=self.normalize_email(email),
+            username=username,
+            phone=phone,
+            city=city,
+            address=address,
         )
         user.set_password(password)
         user.save(using=self._db)
@@ -27,6 +33,7 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser):
     email = models.EmailField(verbose_name="email", max_length=255, unique=True)
+    username = models.CharField(max_length=255, blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
